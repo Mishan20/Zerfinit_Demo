@@ -16,8 +16,8 @@ import {
 import { getCourseByInstructorU } from '../../app/usecases/course/viewCourse';
 import { addLessonsU } from '../../app/usecases/lessons/addLesson';
 import { getLessonsByCourseIdU } from '../../app/usecases/lessons/viewLessons';
-import { CloudServiceInterface } from '../../app/services/localFileServiceInterface';
-import { CloudServiceImpl } from '../../frameworks/services/s3CloudService';
+import { LocalFileService } from '../../app/services/localFileServiceInterface';
+import { LocalFileServiceImpl } from '../../frameworks/services/localFileService';
 import { getQuizzesLessonU } from '../../app/usecases/quiz/getQuiz';
 import { getLessonByIdU } from '../../app/usecases/lessons/getLesson';
 import { QuizDbInterface } from '../../app/repositories/quizDbRepository';
@@ -51,8 +51,8 @@ import { searchCourseU } from '../../app/usecases/course/search';
 // import { RedisClient } from '@src/app';
 
 const courseController = (
-  cloudServiceInterface: CloudServiceInterface,
-  cloudServiceImpl: CloudServiceImpl,
+  LocalFileService: LocalFileService,
+  localFileServiceImpl: LocalFileServiceImpl,
   courseDbRepository: CourseDbRepositoryInterface,
   courseDbRepositoryImpl: CourseRepositoryMongoDbInterface,
   quizDbRepository: QuizDbInterface,
@@ -68,7 +68,7 @@ const courseController = (
   // cacheClient: RedisClient
 ) => {
   const dbRepositoryCourse = courseDbRepository(courseDbRepositoryImpl());
-  const cloudService = cloudServiceInterface(cloudServiceImpl());
+  const localFileService = LocalFileService(localFileServiceImpl());
   const dbRepositoryQuiz = quizDbRepository(quizDbRepositoryImpl());
   const dbRepositoryLesson = lessonDbRepository(lessonDbRepositoryImpl());
   const dbRepositoryDiscussion = discussionDbRepository(
@@ -88,7 +88,7 @@ const courseController = (
         instructorId,
         course,
         files,
-        cloudService,
+        localFileService,
         dbRepositoryCourse
       );
       console.log(response)
@@ -111,7 +111,7 @@ const courseController = (
       instructorId,
       files,
       course,
-      cloudService,
+      localFileService,
       dbRepositoryCourse
     );
     res.status(200).json({
@@ -122,7 +122,7 @@ const courseController = (
   });
 
   const getAllCourses = asyncHandler(async (req: Request, res: Response) => {
-    const courses = await getAllCourseU(cloudService, dbRepositoryCourse);
+    const courses = await getAllCourseU(localFileService, dbRepositoryCourse);
     const cacheOptions = {
       key: `all-courses`,
       expireTimeSec: 600,
@@ -141,7 +141,7 @@ const courseController = (
       const courseId: string = req.params.courseId;
       const course = await getCourseByIdU(
         courseId,
-        cloudService,
+        localFileService,
         dbRepositoryCourse
       );
       console.log(course)
@@ -158,7 +158,7 @@ const courseController = (
       const instructorId = req.user?.Id;
       const courses = await getCourseByInstructorU(
         instructorId,
-        cloudService,
+        localFileService,
         dbRepositoryCourse
       );
       res.status(200).json({
@@ -182,7 +182,7 @@ const courseController = (
       instructorId,
       lesson,
       dbRepositoryLesson,
-      cloudService,
+      localFileService,
       dbRepositoryQuiz
     );
     res.status(200).json({
@@ -203,7 +203,7 @@ const courseController = (
       lessonId,
       lesson,
       dbRepositoryLesson,
-      cloudService,
+      localFileService,
       dbRepositoryQuiz
     );
     res.status(200).json({
@@ -356,7 +356,7 @@ const courseController = (
       const studentId: string = req.user?.Id ?? '';
       const courses = await getRecommendedCourseByStudentU(
         studentId,
-        cloudService,
+        localFileService,
         dbRepositoryCourse
       );
       res.status(200).json({
@@ -370,7 +370,7 @@ const courseController = (
   const getTrendingCourses = asyncHandler(
     async (req: Request, res: Response) => {
       const courses = await getTrendingCourseU(
-        cloudService,
+        localFileService,
         dbRepositoryCourse
       );
       res.status(200).json({
@@ -386,7 +386,7 @@ const courseController = (
       const studentId: string | undefined = req.user?.Id;
       const courses = await getCourseByStudentU(
         studentId,
-        cloudService,
+        localFileService,
         dbRepositoryCourse
       );
       res.status(200).json({
@@ -403,7 +403,7 @@ const courseController = (
     const searchResult = await searchCourseU(
       search,
       filter,
-      cloudService,
+      localFileService,
       dbRepositoryCourse
     );
     if (searchResult.length) {

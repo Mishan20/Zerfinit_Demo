@@ -15,8 +15,8 @@ import { SendEmailServiceInterface } from '../../app/services/sendEmailServiceIn
 import { InstructorDbInterface } from '../../app/repositories/instructorDbRepository';
 import { InstructorRepositoryMongoDb } from '../../frameworks/database/mongodb/repositories/instructorRepoMongoDb';
 import { CustomRequest } from '../../types/customRequest';
-import { CloudServiceInterface } from '../../app/services/localFileServiceInterface';
-import { CloudServiceImpl } from '../../frameworks/services/s3CloudService';
+import { LocalFileService } from '../../app/services/localFileServiceInterface';
+import { LocalFileServiceImpl } from '../../frameworks/services/localFileService';
 import {
   changePasswordU,
   getStudentsForInstructorsU,
@@ -35,8 +35,8 @@ const instructorController = (
   courseDbRepositoryImpl: CourseRepositoryMongoDbInterface,
   emailServiceInterface: SendEmailServiceInterface,
   emailServiceImpl: SendEmailService,
-  cloudServiceInterface: CloudServiceInterface,
-  cloudServiceImpl: CloudServiceImpl
+  localFileServiceInterface: LocalFileService,
+  localFileServiceImpl: LocalFileServiceImpl
 ) => {
   const authService = authServiceInterface(authServiceImpl());
   const dbRepositoryInstructor = instructorDbRepository(
@@ -44,7 +44,7 @@ const instructorController = (
   );
   const dbRepositoryCourse = courseDbRepository(courseDbRepositoryImpl());
   const emailService = emailServiceInterface(emailServiceImpl());
-  const cloudService = cloudServiceInterface(cloudServiceImpl());
+  const localFileService = localFileServiceInterface(localFileServiceImpl());
 
   //? INSTRUCTOR MANAGEMENT
   const getInstructorRequests = asyncHandler(
@@ -90,7 +90,7 @@ const instructorController = (
 
   const getAllInstructor = asyncHandler(async (req: Request, res: Response) => {
     const instructors = await getAllInstructors(
-      cloudService,
+      localFileService,
       dbRepositoryInstructor
     );
     res.json({
@@ -133,7 +133,7 @@ const instructorController = (
   const getBlockedInstructor = asyncHandler(
     async (req: Request, res: Response) => {
       const response = await getBlockedInstructors(
-        cloudService,
+        localFileService,
         dbRepositoryInstructor
       );
       res.json({
@@ -149,7 +149,7 @@ const instructorController = (
       let instructorId = req.params.instructorId;
       const response = await getInstructorByIdUseCase(
         instructorId,
-        cloudService,
+        localFileService,
         dbRepositoryInstructor
       );
       res.json({
@@ -169,7 +169,7 @@ const instructorController = (
         instructorId,
         instructorInfo,
         profilePic,
-        cloudService,
+        localFileService,
         dbRepositoryInstructor
       );
       res.json({
@@ -204,7 +204,7 @@ const instructorController = (
       const instructorId: string | undefined = req.user?.Id;
       const students = await getStudentsForInstructorsU(
         instructorId,
-        cloudService,
+        localFileService,
         dbRepositoryCourse
       );
       res.status(200).json({
@@ -220,7 +220,7 @@ const instructorController = (
       const instructorId = req.user?.Id;
       const instructor = await getInstructorByIdUseCase(
         instructorId ?? '',
-        cloudService,
+        localFileService,
         dbRepositoryInstructor
       );
       res.status(200).json({

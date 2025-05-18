@@ -8,14 +8,14 @@ import { InstructorDbInterface } from '../../../app/repositories/instructorDbRep
 import { AuthServiceInterface } from '../../../app/services/authServicesInterface';
 import { RefreshTokenDbInterface } from '../../../app/repositories/refreshTokenDBRepository';
 import { UploadedFileInterface } from '@src/types/common';
-import { CloudServiceInterface } from '@src/app/services/localFileServiceInterface';
+import { LocalFileService } from '@src/app/services/localFileServiceInterface';
 
 export const instructorRegister = async (
   instructor: InstructorInterface,
   files: Express.Multer.File[],
   instructorRepository: ReturnType<InstructorDbInterface>,
   authService: ReturnType<AuthServiceInterface>,
-  cloudService: ReturnType<CloudServiceInterface>
+  localFileService: ReturnType<LocalFileService>
 ) => {
   console.log(files);
   instructor.certificates=[]
@@ -40,10 +40,10 @@ export const instructorRegister = async (
     let uploadedFile;
 
     if (file.originalname === 'profilePic') {
-      uploadedFile = await cloudService.upload(file);
+      uploadedFile = await localFileService.upload(file);
       instructor.profilePic = uploadedFile;
     } else {
-      uploadedFile = await cloudService.upload(file);
+      uploadedFile = await localFileService.upload(file);
       instructor.certificates.push(uploadedFile);
     }
   }
