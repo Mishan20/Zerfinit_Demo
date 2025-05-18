@@ -1,11 +1,11 @@
 import HttpStatusCodes from '../../../constants/HttpStatusCodes';
 import AppError from '../../../utils/appError';
 import { CourseDbRepositoryInterface } from '../../repositories/courseDbRepository';
-import { CloudServiceInterface } from '@src/app/services/cloudServiceInterface';
+import { LocalFileService } from '@src/app/services/localFileServiceInterface';
 
 export const getRecommendedCourseByStudentU = async (
   studentId: string,
-  cloudService: ReturnType<CloudServiceInterface>,
+  cloudService: ReturnType<LocalFileService>,
   courseDbRepository: ReturnType<CourseDbRepositoryInterface>
 ) => {
   if (!studentId) {
@@ -33,7 +33,7 @@ export const getRecommendedCourseByStudentU = async (
 };
 
 export const getTrendingCourseU = async (
-  cloudService: ReturnType<CloudServiceInterface>,
+  cloudService: ReturnType<LocalFileService>,
   courseDbRepository: ReturnType<CourseDbRepositoryInterface>
 ) => {
   const courses = await courseDbRepository.getTrendingCourse();

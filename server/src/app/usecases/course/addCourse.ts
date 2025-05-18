@@ -2,13 +2,13 @@ import { CourseDbRepositoryInterface } from '../../repositories/courseDbReposito
 import HttpStatusCodes from '../../../constants/HttpStatusCodes';
 import { AddCourseInfoInterface } from '../../../types/courseInterface';
 import AppError from '../../../utils/appError';
-import { CloudServiceInterface } from '@src/app/services/cloudServiceInterface';
+import { LocalFileService } from '@src/app/services/localFileServiceInterface';
 
 export const addCourses = async (
   instructorId: string | undefined,
   courseInfo: AddCourseInfoInterface,
   files: Express.Multer.File[],
-  cloudService: ReturnType<CloudServiceInterface>,
+  cloudService: ReturnType<LocalFileService>,
   courseDbRepository: ReturnType<CourseDbRepositoryInterface>
 ) => {
   if (!instructorId || !courseInfo || !files || files.length === 0) {

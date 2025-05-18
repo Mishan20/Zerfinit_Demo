@@ -8,7 +8,7 @@ import { InstructorDbInterface } from '../../../app/repositories/instructorDbRep
 import { AuthServiceInterface } from '../../../app/services/authServicesInterface';
 import { RefreshTokenDbInterface } from '../../../app/repositories/refreshTokenDBRepository';
 import { UploadedFileInterface } from '@src/types/common';
-import { CloudServiceInterface } from '@src/app/services/cloudServiceInterface';
+import { CloudServiceInterface } from '@src/app/services/localFileServiceInterface';
 
 export const instructorRegister = async (
   instructor: InstructorInterface,

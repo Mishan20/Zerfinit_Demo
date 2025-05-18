@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import asyncHandler from 'express-async-handler';
-import { CloudServiceInterface } from '../../app/services/cloudServiceInterface';
+import { CloudServiceInterface } from '../../app/services/localFileServiceInterface';
 import { CloudServiceImpl } from '../../frameworks/services/s3CloudService';
 import { streamVideoU } from '../../app/usecases/videoStream/stream';
 

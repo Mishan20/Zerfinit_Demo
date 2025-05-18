@@ -2,14 +2,14 @@ import { CourseDbRepositoryInterface } from '../../repositories/courseDbReposito
 import HttpStatusCodes from '../../../constants/HttpStatusCodes';
 import { EditCourseInfo } from '../../../types/courseInterface';
 import AppError from '../../../utils/appError';
-import { CloudServiceInterface } from '@src/app/services/cloudServiceInterface';
+import { LocalFileService } from '@src/app/services/localFileServiceInterface';
 
 export const editCourseU = async (
   courseId: string,
   instructorId: string | undefined,
   files: Express.Multer.File[],
   courseInfo: EditCourseInfo,
-  cloudService: ReturnType<CloudServiceInterface>,
+  cloudService: ReturnType<LocalFileService>,
   courseDbRepository: ReturnType<CourseDbRepositoryInterface>
 ) => {
   let isThumbnailUpdated = false,

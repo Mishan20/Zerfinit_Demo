@@ -15,7 +15,7 @@ import { SendEmailServiceInterface } from '../../app/services/sendEmailServiceIn
 import { InstructorDbInterface } from '../../app/repositories/instructorDbRepository';
 import { InstructorRepositoryMongoDb } from '../../frameworks/database/mongodb/repositories/instructorRepoMongoDb';
 import { CustomRequest } from '../../types/customRequest';
-import { CloudServiceInterface } from '../../app/services/cloudServiceInterface';
+import { CloudServiceInterface } from '../../app/services/localFileServiceInterface';
 import { CloudServiceImpl } from '../../frameworks/services/s3CloudService';
 import {
   changePasswordU,

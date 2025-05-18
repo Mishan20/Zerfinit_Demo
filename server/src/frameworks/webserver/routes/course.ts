@@ -3,8 +3,8 @@ import courseController from '../../../adapters/controllers/courseController';
 import { courseRepositoryMongodb } from '../../../frameworks/database/mongodb/repositories/courseReposMongoDb';
 import { courseDbRepository } from '../../../app/repositories/courseDbRepository';
 import roleCheckMiddleware from '../middlewares/roleCheckMiddleware';
-import { cloudServiceInterface } from '../../../app/services/cloudServiceInterface';
-import { s3Service } from '../../../frameworks/services/s3CloudService';
+import { localFileServiceInterface } from '../../../app/services/localFileServiceInterface';
+import { localFileServiceImpl } from '@src/frameworks/services/localFileService';
 import upload from '../middlewares/multer';
 import { quizDbRepository } from '../../../app/repositories/quizDbRepository';
 import { quizRepositoryMongodb } from '../../../frameworks/database/mongodb/repositories/quizzDbRepository';
@@ -23,8 +23,8 @@ import jwtAuthMiddleware from '../middlewares/userAuth';
 const courseRouter = (redisClient: any) => {
   const router = express.Router();
   const controller = courseController(
-    cloudServiceInterface,
-    s3Service,
+    localFileServiceInterface,
+    localFileServiceImpl,
     courseDbRepository,
     courseRepositoryMongodb,
     quizDbRepository,

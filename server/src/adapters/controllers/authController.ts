@@ -25,7 +25,7 @@ import { AdminRepositoryMongoDb } from '@src/frameworks/database/mongodb/reposit
 import { RefreshTokenDbInterface } from '@src/app/repositories/refreshTokenDBRepository';
 import { RefreshTokenRepositoryMongoDb } from '@src/frameworks/database/mongodb/repositories/refreshTokenRepoMongoDb';
 import { CloudServiceImpl } from '@src/frameworks/services/s3CloudService';
-import { CloudServiceInterface } from '@src/app/services/cloudServiceInterface';
+import { CloudServiceInterface } from '@src/app/services/localFileServiceInterface';
 const authController = (
   authServiceInterface: AuthServiceInterface,
   authServiceImpl: AuthService,

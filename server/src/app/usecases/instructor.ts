@@ -3,7 +3,7 @@ import AppError from '../../utils/appError';
 import HttpStatusCodes from '../../constants/HttpStatusCodes';
 import { AuthServiceInterface } from '../services/authServicesInterface';
 import { SavedInstructorInterface } from '@src/types/instructorInterface';
-import { CloudServiceInterface } from '../services/cloudServiceInterface';
+import { LocalFileService } from '../services/localFileServiceInterface';
 import { CourseDbRepositoryInterface } from '../repositories/courseDbRepository';
 
 export const changePasswordU = async (
@@ -50,7 +50,7 @@ export const updateProfileU = async (
   id: string | undefined,
   instructorInfo: SavedInstructorInterface,
   profilePic: Express.Multer.File,
-  cloudService: ReturnType<CloudServiceInterface>,
+  cloudService: ReturnType<LocalFileService>,
   instructorDbRepository: ReturnType<InstructorDbInterface>
 ) => {
   if (!id) {
@@ -71,7 +71,7 @@ export const updateProfileU = async (
 
 export const getStudentsForInstructorsU = async (
   instructorId: string|undefined,
-  cloudService: ReturnType<CloudServiceInterface>,
+  cloudService: ReturnType<LocalFileService>,
   courseDbRepository: ReturnType<CourseDbRepositoryInterface>
 ) => {
   if (!instructorId) {

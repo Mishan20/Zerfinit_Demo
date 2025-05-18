@@ -2,10 +2,10 @@ import { StudentInterface } from '@src/types/studentInterface';
 import HttpStatusCodes from '../../../constants/HttpStatusCodes';
 import AppError from '../../../utils/appError';
 import { StudentsDbInterface } from '@src/app/repositories/studentDbRepository';
-import { CloudServiceInterface } from '@src/app/services/cloudServiceInterface';
+import { LocalFileService } from '@src/app/services/localFileServiceInterface';
 
 export const getAllStudentsU = async (
-  cloudService:ReturnType<CloudServiceInterface>,
+  cloudService:ReturnType<LocalFileService>,
   studentRepository: ReturnType<StudentsDbInterface>
 ) => {
   const students:StudentInterface[]|null = await studentRepository.getAllStudents();
@@ -56,7 +56,7 @@ export const unblockStudentU = async (
 
 
 export const getAllBlockedStudentsU = async (
-  cloudService:ReturnType<CloudServiceInterface>,
+  cloudService:ReturnType<LocalFileService>,
   studentRepository: ReturnType<StudentsDbInterface>
 ) => {
   const blockedStudents:StudentInterface[]|null = await studentRepository.getAllBlockedStudents();

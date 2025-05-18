@@ -2,7 +2,7 @@ import { StudentsDbInterface } from '../repositories/studentDbRepository';
 import AppError from '../../utils/appError';
 import HttpStatusCodes from '../../constants/HttpStatusCodes';
 import { AuthServiceInterface } from '../services/authServicesInterface';
-import { CloudServiceInterface } from '../services/cloudServiceInterface';
+import { LocalFileService } from '../services/localFileServiceInterface';
 import {
   StudentInterface,
   StudentUpdateInfo
@@ -53,7 +53,7 @@ export const updateProfileU = async (
   id: string | undefined,
   studentInfo: StudentUpdateInfo,
   profilePic: Express.Multer.File,
-  cloudService: ReturnType<CloudServiceInterface>,
+  cloudService: ReturnType<LocalFileService>,
   studentDbRepository: ReturnType<StudentsDbInterface>
 ) => {
   if (!id) {
@@ -74,7 +74,7 @@ export const updateProfileU = async (
 
 export const getStudentDetailsU = async (
   id: string | undefined,
-  cloudService: ReturnType<CloudServiceInterface>,
+  cloudService: ReturnType<LocalFileService>,
   studentDbRepository: ReturnType<StudentsDbInterface>
 ) => {
   if (!id) {

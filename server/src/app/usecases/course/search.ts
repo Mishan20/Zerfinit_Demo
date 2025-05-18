@@ -2,12 +2,12 @@ import { CourseDbRepositoryInterface } from '../../../app/repositories/courseDbR
 import AppError from '../../../utils/appError';
 import HttpStatusCodes from '../../../constants/HttpStatusCodes';
 import { CourseInterface } from '../../../types/courseInterface';
-import { CloudServiceInterface } from '@src/app/services/cloudServiceInterface';
+import { LocalFileService } from '@src/app/services/localFileServiceInterface';
 
 export const searchCourseU = async (
   searchQuery: string,
   filterQuery: string,
-  cloudService:ReturnType<CloudServiceInterface>,
+  cloudService:ReturnType<LocalFileService>,
   courseDbRepository: ReturnType<CourseDbRepositoryInterface>
 ) => {
   if (!searchQuery && !filterQuery) {

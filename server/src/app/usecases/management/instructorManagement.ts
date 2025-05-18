@@ -2,7 +2,7 @@ import HttpStatusCodes from '../../../constants/HttpStatusCodes';
 import AppError from '../../../utils/appError';
 import { SendEmailService } from '@src/frameworks/services/sendEmailService';
 import { InstructorDbInterface } from '@src/app/repositories/instructorDbRepository';
-import { CloudServiceInterface } from '@src/app/services/cloudServiceInterface';
+import { LocalFileService } from '@src/app/services/localFileServiceInterface';
 export const getAllInstructorRequests = async (
   instructorRepository: ReturnType<InstructorDbInterface>
 ) => {
@@ -68,7 +68,7 @@ export const rejectInstructorRequest = async (
 };
 
 export const getAllInstructors = async (
-  cloudService: ReturnType<CloudServiceInterface>,
+  cloudService: ReturnType<LocalFileService>,
   instructorRepository: ReturnType<InstructorDbInterface>
 ) => {
   const instructors = await instructorRepository.getAllInstructors();
@@ -114,7 +114,7 @@ export const unblockInstructors = async (
 };
 
 export const getBlockedInstructors = async (
-  cloudService: ReturnType<CloudServiceInterface>,
+  cloudService: ReturnType<LocalFileService>,
   instructorRepository: ReturnType<InstructorDbInterface>
 ) => {
   const blockedInstructors = await instructorRepository.getBlockedInstructors();
@@ -132,7 +132,7 @@ export const getBlockedInstructors = async (
 
 export const getInstructorByIdUseCase = async (
   instructorId: string,
-  cloudService: ReturnType<CloudServiceInterface>,
+  cloudService: ReturnType<LocalFileService>,
   instructorRepository: ReturnType<InstructorDbInterface>
 ) => {
   if (!instructorId) {

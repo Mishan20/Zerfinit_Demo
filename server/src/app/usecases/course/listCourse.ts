@@ -2,10 +2,10 @@ import HttpStatusCodes from '../../../constants/HttpStatusCodes';
 import AppError from '../../../utils/appError';
 import { CourseDbRepositoryInterface } from '../../repositories/courseDbRepository';
 import { CourseInterface } from '@src/types/courseInterface';
-import { CloudServiceInterface } from '@src/app/services/cloudServiceInterface';
+import { LocalFileService } from '@src/app/services/localFileServiceInterface';
 
 export const getAllCourseU = async (
-  cloudService: ReturnType<CloudServiceInterface>,
+  cloudService: ReturnType<LocalFileService>,
   courseDbRepository: ReturnType<CourseDbRepositoryInterface>
 ) => {
   const courses: CourseInterface[] | null =
@@ -23,7 +23,7 @@ export const getAllCourseU = async (
 
 export const getCourseByIdU = async (
   courseId: string,
-  cloudService: ReturnType<CloudServiceInterface>,
+  cloudService: ReturnType<LocalFileService>,
   courseDbRepository: ReturnType<CourseDbRepositoryInterface>
 ) => {
   if (!courseId) {
@@ -58,7 +58,7 @@ export const getCourseByIdU = async (
 
 export const getCourseByStudentU = async (
   studentId: string | undefined,
-  cloudService: ReturnType<CloudServiceInterface>,
+  cloudService: ReturnType<LocalFileService>,
   courseDbRepository: ReturnType<CourseDbRepositoryInterface>
 ) => {
   if (!studentId) {

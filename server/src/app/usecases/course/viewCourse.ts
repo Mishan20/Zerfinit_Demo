@@ -1,11 +1,11 @@
 import { CourseDbRepositoryInterface } from '../../repositories/courseDbRepository';
 import HttpStatusCodes from '../../../constants/HttpStatusCodes';
 import AppError from '../../../utils/appError';
-import { CloudServiceInterface } from '@src/app/services/cloudServiceInterface';
+import { LocalFileService } from '@src/app/services/localFileServiceInterface';
 
 export const getCourseByInstructorU = async (
   instructorId: string | undefined,
-  cloudService: ReturnType<CloudServiceInterface>,
+  cloudService: ReturnType<LocalFileService>,
   courseDbRepository: ReturnType<CourseDbRepositoryInterface>
 ) => {
   if (!instructorId && instructorId !== '') {

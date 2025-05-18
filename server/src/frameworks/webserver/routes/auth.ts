@@ -12,8 +12,8 @@ import { adminDbRepository } from "../../../app/repositories/adminDbRepository";
 import { adminRepoMongoDb } from "../../../frameworks/database/mongodb/repositories/adminRepoMongoDb";
 import { refreshTokenDbRepository } from "../../../app/repositories/refreshTokenDBRepository";
 import { refreshTokenRepositoryMongoDB } from "../../../frameworks/database/mongodb/repositories/refreshTokenRepoMongoDb";
-import { s3Service } from "../../../frameworks/services/s3CloudService";
-import { cloudServiceInterface } from "../../../app/services/cloudServiceInterface";
+import { localFileServiceImpl } from "../../../frameworks/services/localFileService";
+import { localFileServiceInterface} from "../../../app/services/localFileServiceInterface";
 import upload from "../middlewares/multer";
 const authRouter = () => {     
   const router = express.Router();
@@ -21,8 +21,8 @@ const authRouter = () => {
   const controller = authController(
     authServiceInterface,
     authService,
-    cloudServiceInterface,
-    s3Service,
+    localFileServiceInterface,
+    localFileServiceImpl,
     studentDbRepository,
     studentRepositoryMongoDB,  
     instructorDbRepository,  

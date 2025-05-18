@@ -6,8 +6,8 @@ import { instructorDbRepository } from '../../../app/repositories/instructorDbRe
 import instructorController from '../../../adapters/controllers/instructorController';
 import { authService } from '../../../frameworks/services/authService';
 import { authServiceInterface } from '../../../app/services/authServicesInterface';
-import { cloudServiceInterface } from '../../../app/services/cloudServiceInterface';
-import { s3Service } from '../../../frameworks/services/s3CloudService';
+import { localFileServiceInterface } from '../../../app/services/localFileServiceInterface';
+import { localFileServiceImpl } from '../../../frameworks/services/localFileService';
 import roleCheckMiddleware from '../middlewares/roleCheckMiddleware';
 import jwtAuthMiddleware from '../middlewares/userAuth';
 import upload from '../middlewares/multer';
@@ -25,8 +25,8 @@ const instructorRouter = () => {
     courseRepositoryMongodb,
     sendEmailServiceInterface,
     sendEmailService,
-    cloudServiceInterface,
-    s3Service
+    localFileServiceInterface,
+    localFileServiceImpl
   );
   //* Instructor management
   router.get('/view-instructor-requests', controller.getInstructorRequests);

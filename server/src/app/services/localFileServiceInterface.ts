@@ -1,6 +1,6 @@
-import { CloudServiceImpl } from "../../frameworks/services/s3CloudService";
+import { LocalFileServiceImpl } from "../../frameworks/services/localFileService";
 
-export const cloudServiceInterface = (service:ReturnType<CloudServiceImpl>) =>{
+export const localFileServiceInterface = (service:ReturnType<LocalFileServiceImpl>) =>{
    
     const upload = async(file:Express.Multer.File) => await service.uploadFile(file)
 
@@ -24,4 +24,4 @@ export const cloudServiceInterface = (service:ReturnType<CloudServiceImpl>) =>{
     }
 }
 
-export type CloudServiceInterface = typeof cloudServiceInterface
+export type LocalFileService = typeof localFileServiceInterface

@@ -6,6 +6,7 @@ import configKeys from '../../config';
 import mongoSanitize from 'express-mongo-sanitize';
 import helmet from 'helmet';
 import rateLimit from 'express-rate-limit';
+import path from 'path';
 
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -37,6 +38,8 @@ const expressConfig = (app: Application) => {
     })
   );
   app.use(mongoSanitize());
+
+  app.use('/uploads', express.static(path.join(__dirname, '..', '..', 'uploads')));
 };
 
 export default expressConfig;

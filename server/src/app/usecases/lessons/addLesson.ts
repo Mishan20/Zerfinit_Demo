@@ -1,7 +1,7 @@
 import HttpStatusCodes from '../../../constants/HttpStatusCodes';
 import AppError from '../../../utils/appError';
 import { CreateLessonInterface } from '../../../types/lesson';
-import { CloudServiceInterface } from '@src/app/services/cloudServiceInterface';
+import { LocalFileService } from '@src/app/services/localFileServiceInterface';
 import { QuizDbInterface } from '@src/app/repositories/quizDbRepository';
 import { LessonDbRepositoryInterface } from '@src/app/repositories/lessonDbRepository';
 import * as ffprobePath from 'ffprobe-static';
@@ -14,7 +14,7 @@ export const addLessonsU = async (
   instructorId: string | undefined,
   lesson: CreateLessonInterface,
   lessonDbRepository: ReturnType<LessonDbRepositoryInterface>,
-  cloudService: ReturnType<CloudServiceInterface>,
+  cloudService: ReturnType<LocalFileService>,
   quizDbRepository: ReturnType<QuizDbInterface>
 ) => {
   if (!courseId) {

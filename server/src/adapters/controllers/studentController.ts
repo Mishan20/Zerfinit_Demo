@@ -11,7 +11,7 @@ import {
   updateProfileU
 } from '../../app/usecases/student';
 import { StudentUpdateInfo } from '../../types/studentInterface';
-import { CloudServiceInterface } from '../../app/services/cloudServiceInterface';
+import { CloudServiceInterface } from '../../app/services/localFileServiceInterface';
 import { CloudServiceImpl } from '../../frameworks/services/s3CloudService';
 import {
   blockStudentU,
