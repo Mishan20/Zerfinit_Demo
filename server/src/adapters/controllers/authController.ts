@@ -24,13 +24,13 @@ import { AdminDbInterface } from '@src/app/repositories/adminDbRepository';
 import { AdminRepositoryMongoDb } from '@src/frameworks/database/mongodb/repositories/adminRepoMongoDb';
 import { RefreshTokenDbInterface } from '@src/app/repositories/refreshTokenDBRepository';
 import { RefreshTokenRepositoryMongoDb } from '@src/frameworks/database/mongodb/repositories/refreshTokenRepoMongoDb';
-import { CloudServiceImpl } from '@src/frameworks/services/s3CloudService';
-import { CloudServiceInterface } from '@src/app/services/localFileServiceInterface';
+import { LocalFileServiceImpl } from '@src/frameworks/services/localFileService';
+import { LocalFileService} from '@src/app/services/localFileServiceInterface';
 const authController = (
   authServiceInterface: AuthServiceInterface,
   authServiceImpl: AuthService,
-  cloudServiceInterface:CloudServiceInterface,
-  CloudServiceImpl:CloudServiceImpl,
+  localFileServiceInterface:LocalFileService,
+  LocalFileServiceImpl:LocalFileServiceImpl,
   studentDbRepository: StudentsDbInterface,
   studentDbRepositoryImpl: StudentRepositoryMongoDB,
   instructorDbRepository: InstructorDbInterface,
@@ -51,7 +51,7 @@ const authController = (
     refreshTokenDbRepositoryImpl()
   );
   const authService = authServiceInterface(authServiceImpl());
-  const cloudService = cloudServiceInterface(CloudServiceImpl())
+  const localFileService = localFileServiceInterface(LocalFileServiceImpl())
   const googleAuthService = googleAuthServiceInterface(googleAuthServiceImpl());
 
   //? STUDENT
@@ -115,7 +115,7 @@ const authController = (
         files,
         dbRepositoryInstructor,
         authService,
-        cloudService
+        localFileService
       );
       res.status(200).json({
         status: 'success',
