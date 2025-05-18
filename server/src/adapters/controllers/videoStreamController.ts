@@ -1,14 +1,14 @@
 import { Request, Response } from 'express';
 import asyncHandler from 'express-async-handler';
-import { CloudServiceInterface } from '../../app/services/localFileServiceInterface';
-import { CloudServiceImpl } from '../../frameworks/services/s3CloudService';
+import { LocalFileService } from '../../app/services/localFileServiceInterface';
+import { LocalFileServiceImpl } from '../../frameworks/services/localFileService';
 import { streamVideoU } from '../../app/usecases/videoStream/stream';
 
 const videoStreamController = (
-  cloudServiceInterface: CloudServiceInterface,
-  cloudServiceImpl: CloudServiceImpl
+  localFileServiceInterface: LocalFileService,
+  localFileServiceImpl: LocalFileServiceImpl
 ) => {
-  const cloudService = cloudServiceInterface(cloudServiceImpl());
+  const cloudService = localFileServiceInterface(localFileServiceImpl());
 
   const streamVideo = asyncHandler(async (req: Request, res: Response) => {
     const videoFileId = req.params.videoFileId;

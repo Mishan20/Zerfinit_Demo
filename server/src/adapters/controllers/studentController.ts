@@ -11,8 +11,8 @@ import {
   updateProfileU
 } from '../../app/usecases/student';
 import { StudentUpdateInfo } from '../../types/studentInterface';
-import { CloudServiceInterface } from '../../app/services/localFileServiceInterface';
-import { CloudServiceImpl } from '../../frameworks/services/s3CloudService';
+import { LocalFileService } from '../../app/services/localFileServiceInterface';
+import { LocalFileServiceImpl } from '../../frameworks/services/localFileService';
 import {
   blockStudentU,
   getAllBlockedStudentsU,
@@ -34,8 +34,8 @@ const studentController = (
   studentDbRepositoryImpl: StudentRepositoryMongoDB,
   contactDbRepository: ContactDbInterface,
   contactDbRepositoryImpl: ContactRepoImpl,
-  cloudServiceInterface: CloudServiceInterface,
-  cloudServiceImpl: CloudServiceImpl,
+  localFileServiceInterface: LocalFileService,
+  localFileServiceImpl: LocalFileServiceImpl,
   // cacheDbRepository: CacheRepositoryInterface,
   // cacheDbRepositoryImpl: RedisRepositoryImpl,
   // cacheClient: RedisClient
@@ -47,7 +47,7 @@ const studentController = (
   const dbRepositoryContact = contactDbRepository(contactDbRepositoryImpl());
 
   const authService = authServiceInterface(authServiceImpl());
-  const cloudService = cloudServiceInterface(cloudServiceImpl());
+  const localFileService = localFileServiceInterface(localFileServiceImpl());
   const changePassword = asyncHandler(
     async (req: CustomRequest, res: Response) => {
       const passwordInfo: { currentPassword: string; newPassword: string } =
@@ -76,7 +76,7 @@ const studentController = (
         studentId,
         studentInfo,
         profilePic,
-        cloudService,
+        localFileService,
         dbRepositoryStudent
       );
       // await dbRepositoryCache.clearCache(studentId ?? '');
@@ -93,7 +93,7 @@ const studentController = (
       const studentId: string | undefined = req.user?.Id;
       const studentDetails = await getStudentDetailsU(
         studentId,
-        cloudService,
+        localFileService,
         dbRepositoryStudent
       );
       const cacheOptions = {
@@ -111,7 +111,7 @@ const studentController = (
   );
 
   const getAllStudents = asyncHandler(async (req: Request, res: Response) => {
-    const students = await getAllStudentsU(cloudService, dbRepositoryStudent);
+    const students = await getAllStudentsU(localFileService, dbRepositoryStudent);
     res.status(200).json({
       status: 'success',
       message: 'Successfully retrieved all student details',
@@ -143,7 +143,7 @@ const studentController = (
   const getAllBlockedStudents = asyncHandler(
     async (req: Request, res: Response) => {
       const students = await getAllBlockedStudentsU(
-        cloudService,
+        localFileService,
         dbRepositoryStudent
       );
       res.status(200).json({
