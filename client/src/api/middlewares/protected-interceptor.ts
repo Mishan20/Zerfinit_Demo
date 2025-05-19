@@ -3,8 +3,8 @@ import CustomApiError from "../../utils/CustomApiError";
 import CONFIG_KEYS from "../../config";
 import { refreshTokenApi } from "../endpoints/auth/token-refresh";
 const api: AxiosInstance = axios.create({
-  //baseURL: CONFIG_KEYS.API_BASE_URL,
-  baseURL: "http://localhost:4000/",
+  baseURL: CONFIG_KEYS.API_BASE_URL,
+  //baseURL: "http://localhost:4000/",
 });
 
 api.interceptors.request.use(
