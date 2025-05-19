@@ -2,7 +2,8 @@ import axios, { AxiosInstance, AxiosResponse, AxiosError } from "axios";
 import CONFIG_KEYS from "../../config";
 import CustomApiError from "../../utils/CustomApiError";
 const axiosInstance: AxiosInstance = axios.create({
-  baseURL: CONFIG_KEYS.API_BASE_URL,
+  //baseURL: CONFIG_KEYS.API_BASE_URL,
+  baseURL: "http://localhost:4000/",
 });
 
 

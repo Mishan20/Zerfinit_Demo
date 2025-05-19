@@ -41,15 +41,15 @@ const StudentLoginPage: React.FC = () => {
 
   return (
     <div className="m-5 ">
-      <div className='flex justify-center items-center mt-16  text-customFontColorBlack'>
-        <div className='bg-white rounded-lg mx-4 shadow-xl border p-8 w-full max-w-md md:mx-auto md:p-10 lg:p-12'>
+      <div className='flex items-center justify-center mt-16 text-customFontColorBlack'>
+        <div className='w-full max-w-md p-8 mx-4 bg-white border rounded-lg shadow-xl md:mx-auto md:p-10 lg:p-12'>
           <div className='sm:mx-auto sm:w-full sm:max-w-sm'>
             <img
-              className='mx-auto h-10 w-auto'
+              className='w-auto h-10 mx-auto'
               src={APP_LOGO}
               alt='Your Company'
             />
-            <h2 className='mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900'>
+            <h2 className='mt-10 text-2xl font-bold leading-9 tracking-tight text-center text-gray-900'>
               Sign in to your account
             </h2>
           </div>
@@ -78,7 +78,7 @@ const StudentLoginPage: React.FC = () => {
                   <ErrorMessage
                     name='email'
                     component='div'
-                    className='text-red-500 text-sm'
+                    className='text-sm text-red-500'
                   />
                 </div>
               </div>
@@ -112,7 +112,7 @@ const StudentLoginPage: React.FC = () => {
                   <ErrorMessage
                     name='password'
                     component='div'
-                    className='text-red-500 text-sm'
+                    className='text-sm text-red-500'
                   />
                 </div>
               </div>
@@ -131,7 +131,7 @@ const StudentLoginPage: React.FC = () => {
             </Form>
           </Formik>
 
-          <p className='mt-10 text-center text-sm text-gray-500'>
+          <p className='mt-10 text-sm text-center text-gray-500'>
             Do not have an account?
             <Link
               to='/register'

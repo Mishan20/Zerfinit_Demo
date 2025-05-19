@@ -40,13 +40,14 @@ connectToMongoDb();
 expressConfig(app);
 
 //* routes for each endpoint
-// routes(app, redisClient);
+// routes(app);
+routes(app, undefined); // Replace 'undefined' with the actual redisClient instance when available
 
 //* handles server side errors
 app.use(errorHandlingMiddleware);
 
 //* catch 404 and forward to error handler
-app.all('*', (req, res, next: NextFunction) => {
+app.all('/{*any}', (req, res, next: NextFunction) => {
   next(new AppError('Not found', 404));
 });
 
@@ -54,3 +55,7 @@ app.all('*', (req, res, next: NextFunction) => {
 serverConfig(server).startServer();
 
 // export type RedisClient = typeof redisClient;
+
+
+
+/// edited
